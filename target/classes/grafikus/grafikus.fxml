@@ -37,12 +37,11 @@
                 <MenuItem text="Delete" />
             </Menu>
             <Menu text="SoapKliens">
-                <MenuItem text="Create" />
-                <MenuItem text="Read" />
-                <MenuItem text="Update" />
-                <MenuItem text="Delete" />
+                <MenuItem text="Letöltés" />
+                <MenuItem text="Letöltés2" />
+                <MenuItem text="Grafikon" />
             </Menu>
-            <Menu onAction="#menuOlvasClick" text="Adatbányászat" />
+            <Menu text="Adatbányászat" />
             <Menu text="Egyéb">
                 <MenuItem onAction="#menuParhuzamosClick" text="Párhuzamos" />
                 <MenuItem onAction="#menuOlvasClick" text="Stream" />
