@@ -1,71 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TableView?>
-<VBox spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="grafikus.GrafikusController">
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafikus.GrafikusController">
     <MenuBar fx:id="menuBar">
         <menus>
             <Menu text="Adatbázis">
                 <items>
-                    <MenuItem text="Olvas" onAction="#menuReadClick"/>
+                    <MenuItem onAction="#menuOlvasClick" text="Olvas" />
                 </items>
                 <items>
-                    <MenuItem text="Olvas2" onAction="#menuRead2Click"/>
+                    <MenuItem onAction="#menuOlvas2Click" text="Olvas2" />
                 </items>
                 <items>
-                    <MenuItem text="Ír" onAction="#menuCreateClick"/>
+                    <MenuItem onAction="#menuCreateClick" text="Ír" />
                 </items>
                 <items>
-                    <MenuItem text="Módosít" onAction="#menuUpdateClick"/>
+                    <MenuItem onAction="#menuUpdateClick" text="Módosít" />
                 </items>
                 <items>
-                    <MenuItem text="Töröl" onAction="#menuDeleteClick"/>
+                    <MenuItem onAction="#menuDeleteClick" text="Töröl" />
                 </items>
             </Menu>
-            <Menu text="Rest1">
-                <items>
-                    <MenuItem text="Lets see" onAction="#menuReadClick"/>
-                </items>
-            </Menu>
-            <Menu text="Rest2">
-                <items>
-                    <MenuItem text="Lets see" onAction="#menuReadClick"/>
-                </items>
-            </Menu>
+            <Menu onAction="#menuOlvasClick" text="Rest1" />
+            <Menu onAction="#menuOlvasClick" text="Rest2" />
             <Menu text="SoapKliens">
-                <MenuItem text="Grafikon" onAction="#menuReadClick"/>
-                <MenuItem text="Letöltés2" onAction="#menuReadClick"/>
-                <MenuItem text="Letöltés" onAction="#menuReadClick"/>
+                <MenuItem onAction="#menuOlvasClick" text="Grafikon" />
+                <MenuItem onAction="#menuOlvasClick" text="Letöltés2" />
+                <MenuItem onAction="#menuOlvasClick" text="Letöltés" />
             </Menu>
-            <Menu text="Adatbányászat">
-                <items>
-                    <MenuItem text="Lets see" onAction="#menuReadClick"/>
-                </items>
-            </Menu>
-            <Menu text="Egyéb">
-                <items>
-                    <MenuItem text="Párhuzamos" onAction="#menuReadClick"/>
-                </items>
-            </Menu>
+            <Menu onAction="#menuOlvasClick" text="Adatbányászat" />
+            <Menu onAction="#menuOlvasClick" text="Egyéb" />
         </menus>
     </MenuBar>
-    <Label fx:id="lb1">Üzenet</Label>
+   <ComboBox fx:id="delete_cb" prefWidth="150.0" />
+   <ComboBox fx:id="update_cb" layoutX="10.0" layoutY="55.0" onAction="#showDataToUpdate" prefWidth="150.0" />
+   <Button fx:id="torles_bt" mnemonicParsing="false" onAction="#deleteData" text="Törlés!" />
+    <Button fx:id="update_bt" mnemonicParsing="false" onAction="#updateData" text="Módosítás!" />
+    <Label fx:id="lb1" alignment="TOP_CENTER" contentDisplay="TOP">Üzenet</Label>
     <GridPane fx:id="gp1" hgap="2" vgap="4">
-        <Label GridPane.rowIndex="0" GridPane.columnIndex="0">Név:</Label>
-        <TextField fx:id="tfNév" GridPane.rowIndex="0" GridPane.columnIndex="1"></TextField>
-        <Label GridPane.rowIndex="1" GridPane.columnIndex="0">Kor:</Label>
-        <TextField fx:id="tfKor" GridPane.rowIndex="1" GridPane.columnIndex="1"></TextField>
-        <Label GridPane.rowIndex="2" GridPane.columnIndex="0">Súly:</Label>
-        <TextField fx:id="tfSúly" GridPane.rowIndex="2" GridPane.columnIndex="1"></TextField>
-        <Button onAction="#bt1Click" GridPane.rowIndex="3" GridPane.columnIndex="1" >Küldés</Button>
+        <Label fx:id="labelFelirat" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="1">Szám:</Label>
+        <TextField fx:id="tfSzam" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="2">Év:</Label>
+        <TextField fx:id="tfEv" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="3">Hét:</Label>
+        <TextField fx:id="tfHet" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="4">Találat:</Label>
+        <TextField fx:id="tfTalalat" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="5">Darab:</Label>
+        <TextField fx:id="tfDarab" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="6">Érték:</Label>
+        <TextField fx:id="tfErtek" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+        <Button onAction="#createNewData" GridPane.columnIndex="1" GridPane.rowIndex="7">Küldés</Button>
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+      <VBox.margin>
+         <Insets left="20.0" right="20.0" />
+      </VBox.margin>
     </GridPane>
-    <TableView fx:id="tv1" >
+   <HBox fx:id="hb1" prefHeight="100.0" prefWidth="200.0">
+      <children>
+         <CheckBox fx:id="hb1_checkbox" mnemonicParsing="false" onAction="#checkboxFilterOlvas2Click" text="Id-k mutatása" />
+         <TextField fx:id="hb1_tf" />
+         <ComboBox fx:id="hb1_cb" onAction="#cbFilterOlvas2Click" prefWidth="150.0" />
+      </children>
+   </HBox>
+   <HBox fx:id="hb2" layoutX="10.0" layoutY="564.0" prefHeight="100.0" prefWidth="200.0">
+      <children>
+         <RadioButton fx:id="hb2_rb1" mnemonicParsing="false" text="RadioButton" />
+         <RadioButton fx:id="hb2_rb2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="RadioButton" />
+         <RadioButton fx:id="hb2_rb3" layoutX="97.0" layoutY="10.0" mnemonicParsing="false" text="RadioButton" />
+      </children>
+   </HBox>
+    <TableView fx:id="tv1">
     </TableView>
 </VBox>
