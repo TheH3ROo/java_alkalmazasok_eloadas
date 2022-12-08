@@ -1,4 +1,6 @@
 package grafikus;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -9,10 +11,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import javafx.scene.control.Alert.AlertType;
+
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 
 public class GrafikusController {
-    @FXML private Label lb1, labelFelirat;
+    @FXML private Label lb1, labelFelirat, par_label1, par_label2;
     @FXML private GridPane gp1;
     @FXML private HBox hb1, hb2;
     @FXML private ComboBox hb1_cb, delete_cb, update_cb;
@@ -23,7 +28,7 @@ public class GrafikusController {
     @FXML private CheckBox hb1_checkbox;
     @FXML private TextField tfSzam2, tfEv2, tfHet2, tfTalalat2, tfDarab2, tfErtek2;
     @FXML private TableView tv1;
-    @FXML private Button torles_bt, update_bt;
+    @FXML private Button torles_bt, update_bt, parhuzamos_bt;
 //    @FXML private TableColumn<Dolgozó, String> IDCol;
 //    @FXML private TableColumn<Dolgozó, String> névCol;
 //    @FXML private TableColumn<Dolgozó, String> korCol;
@@ -57,6 +62,12 @@ public class GrafikusController {
         torles_bt.setManaged(false);
         update_bt.setVisible(false);
         update_bt.setManaged(false);
+        parhuzamos_bt.setVisible(false);
+        parhuzamos_bt.setManaged(false);
+        par_label1.setVisible(false);
+        par_label1.setManaged(false);
+        par_label2.setVisible(false);
+        par_label2.setManaged(false);
     }
     @FXML protected void menuCreateClick() {
         ElemekTörlése();
@@ -117,30 +128,6 @@ public class GrafikusController {
         lb1.setText("Adatok törölve az adatbázisból");
     }
 
-
-//    @FXML protected void menuReadClick_dolgozo() {
-//        ElemekTörlése();
-//        tv1.setVisible(true);
-//        tv1.setManaged(true);
-//        tv1.getColumns().removeAll(tv1.getColumns());
-//        IDCol = new TableColumn("Id");
-//        névCol = new TableColumn("Név");
-//        korCol = new TableColumn("Kor");
-//        súlyCol = new TableColumn("Súly");
-//        tv1.getColumns().addAll(IDCol, névCol, korCol, súlyCol);
-//        IDCol.setCellValueFactory(new PropertyValueFactory<>("Id"));
-//        névCol.setCellValueFactory(new PropertyValueFactory<>("Név"));
-//        korCol.setCellValueFactory(new PropertyValueFactory<>("Kor"));
-//        súlyCol.setCellValueFactory(new PropertyValueFactory<>("Súly"));
-//        tv1.getItems().clear();
-//        Session session = factory.openSession();
-//        Transaction t = session.beginTransaction();
-//        List<Dolgozó> lista = session.createQuery("FROM Dolgozó").list();
-//        for(Dolgozó dolgozó:lista)
-//            tv1.getItems().add(dolgozó);
-//        System.out.println();
-//        t.commit();
-//    }
     @FXML protected void menuOlvasClick() {
         ElemekTörlése();
         set_tv1();
@@ -345,4 +332,25 @@ public class GrafikusController {
         for(Integer info:lista)
             delete_cb.getItems().add(info);
     }
+
+    @FXML protected void menuParhuzamosClick() {
+        ElemekTörlése();
+        parhuzamos_bt.setVisible(true);
+        parhuzamos_bt.setManaged(true);
+        par_label1.setVisible(true);
+        par_label1.setManaged(true);
+        par_label2.setVisible(true);
+        par_label2.setManaged(true);
+        parhuzamos_bt.setOnAction(actionEvent -> {
+            Szal szal = new Szal(par_label1, 1000);
+            Szal szal2 = new Szal(par_label2, 2000);
+            szal.start();
+            szal2.start();
+        });
+    }
+
+    @FXML protected void menuStreamClick(){
+        
+    }
+
 }

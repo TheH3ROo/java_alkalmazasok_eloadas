@@ -32,7 +32,10 @@
                 <MenuItem onAction="#menuOlvasClick" text="Letöltés" />
             </Menu>
             <Menu onAction="#menuOlvasClick" text="Adatbányászat" />
-            <Menu onAction="#menuOlvasClick" text="Egyéb" />
+            <Menu text="Egyéb">
+                <MenuItem onAction="#menuParhuzamosClick" text="Párhuzamos" />
+                <MenuItem onAction="#menuOlvasClick" text="Stream" />
+            </Menu>
         </menus>
     </MenuBar>
    <ComboBox fx:id="delete_cb" prefWidth="150.0" />
@@ -87,6 +90,9 @@
          <RadioButton fx:id="hb2_rb3" layoutX="97.0" layoutY="10.0" mnemonicParsing="false" text="RadioButton" />
       </children>
    </HBox>
+   <Button fx:id="parhuzamos_bt" mnemonicParsing="false" text="Button" />
+   <Label fx:id="par_label1" text="Label" />
+   <Label fx:id="par_label2" layoutX="10.0" layoutY="797.0" text="Label" />
     <TableView fx:id="tv1">
     </TableView>
 </VBox>
