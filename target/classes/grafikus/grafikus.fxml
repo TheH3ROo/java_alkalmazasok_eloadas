@@ -24,12 +24,23 @@
                     <MenuItem onAction="#menuDeleteClick" text="Töröl" />
                 </items>
             </Menu>
-            <Menu onAction="#menuOlvasClick" text="Rest1" />
-            <Menu onAction="#menuOlvasClick" text="Rest2" />
+            <Menu text="Rest_gorest">
+                <MenuItem onAction="#menuRestCreateClick" text="Create" />
+                <MenuItem onAction="#menuRestReadClick" text="Read" />
+                <MenuItem onAction="#menuRestUpdateClick" text="Update" />
+                <MenuItem onAction="#menuRestDeleteClick" text="Delete" />
+            </Menu>
+            <Menu text="Rest_azure">
+                <MenuItem text="Create" />
+                <MenuItem text="Read" />
+                <MenuItem text="Update" />
+                <MenuItem text="Delete" />
+            </Menu>
             <Menu text="SoapKliens">
-                <MenuItem onAction="#menuOlvasClick" text="Grafikon" />
-                <MenuItem onAction="#menuOlvasClick" text="Letöltés2" />
-                <MenuItem onAction="#menuOlvasClick" text="Letöltés" />
+                <MenuItem text="Create" />
+                <MenuItem text="Read" />
+                <MenuItem text="Update" />
+                <MenuItem text="Delete" />
             </Menu>
             <Menu onAction="#menuOlvasClick" text="Adatbányászat" />
             <Menu text="Egyéb">
@@ -93,6 +104,39 @@
    <Button fx:id="parhuzamos_bt" mnemonicParsing="false" text="Button" />
    <Label fx:id="par_label1" text="Label" />
    <Label fx:id="par_label2" layoutX="10.0" layoutY="797.0" text="Label" />
+   <Button fx:id="rest1_delete_bt" onAction="#deleteRecord" mnemonicParsing="false" text="Button" />
+    <GridPane fx:id="gp2" hgap="2" vgap="4">
+        <Label fx:id="gp2_tf1_label" GridPane.columnIndex="0" GridPane.rowIndex="1">ID:</Label>
+        <TextField fx:id="gp2_tf1" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="2">Név:</Label>
+        <TextField fx:id="gp2_tf2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="3">Email:</Label>
+        <TextField fx:id="gp2_tf3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="4">Nem:</Label>
+        <TextField fx:id="gp2_tf4" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Label GridPane.columnIndex="0" GridPane.rowIndex="5">Státusz:</Label>
+        <TextField fx:id="gp2_tf5" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+        <Button fx:id="gp2_button" onAction="#RestCreateClick" GridPane.columnIndex="1" GridPane.rowIndex="6">Küldés</Button>
+        <Button fx:id="gp2_button_update" onAction="#RestUpdateClick" GridPane.columnIndex="1" GridPane.rowIndex="6">Küldés</Button>
+        <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+        </rowConstraints>
+        <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+        </VBox.margin>
+    </GridPane>
+   <TextField fx:id="rest1_id" />
     <TableView fx:id="tv1">
     </TableView>
 </VBox>

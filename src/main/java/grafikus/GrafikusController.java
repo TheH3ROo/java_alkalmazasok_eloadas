@@ -12,29 +12,25 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import javafx.scene.control.Alert.AlertType;
 
-import java.nio.charset.Charset;
+import java.io.IOException;
 import java.util.List;
-import java.util.Random;
+
+import static grafikus.Rest.*;
 
 public class GrafikusController {
-    @FXML private Label lb1, labelFelirat, par_label1, par_label2;
-    @FXML private GridPane gp1;
+    @FXML private Label lb1, labelFelirat, par_label1, par_label2, gp2_tf1_label;
+    @FXML private GridPane gp1, gp2;
     @FXML private HBox hb1, hb2;
     @FXML private ComboBox hb1_cb, delete_cb, update_cb;
-    @FXML private TextField tfNév, tfKor, tfSúly;
-    @FXML private TextField tfSzam, tfEv, tfHet, tfTalalat, tfDarab, tfErtek;
-    @FXML private RadioButton hb1_rb, hb2_rb1, hb2_rb2, hb2_rb3;
-    @FXML private TextField hb1_tf;
+    @FXML private TextField tfSzam, tfEv, tfHet, tfTalalat, tfDarab, tfErtek, rest1_id,
+            gp2_tf1,gp2_tf2,gp2_tf3,gp2_tf4,gp2_tf5;
+    @FXML private RadioButton hb2_rb1, hb2_rb2, hb2_rb3;
     @FXML private CheckBox hb1_checkbox;
-    @FXML private TextField tfSzam2, tfEv2, tfHet2, tfTalalat2, tfDarab2, tfErtek2;
     @FXML private TableView tv1;
-    @FXML private Button torles_bt, update_bt, parhuzamos_bt;
-//    @FXML private TableColumn<Dolgozó, String> IDCol;
-//    @FXML private TableColumn<Dolgozó, String> névCol;
-//    @FXML private TableColumn<Dolgozó, String> korCol;
-//    @FXML private TableColumn<Dolgozó, String> súlyCol;
+    @FXML private Button torles_bt, update_bt, parhuzamos_bt, rest1_delete_bt, gp2_button, gp2_button_update;
 
     @FXML private TableColumn<Infok, String> idCol, szamCol, evCol, hetCol, talalatCol, darabCol, ertekCol;
+    @FXML private TableColumn<User, String> id_rest1, name_rest1, email_rest1, gender_rest1, status_rest1;
     SessionFactory factory;
     @FXML void initialize(){
         ElemekTörlése();
@@ -68,6 +64,19 @@ public class GrafikusController {
         par_label1.setManaged(false);
         par_label2.setVisible(false);
         par_label2.setManaged(false);
+        rest1_delete_bt.setVisible(false);
+        rest1_delete_bt.setManaged(false);
+        rest1_id.setVisible(false);
+        rest1_id.setManaged(false);
+        gp2.setVisible(false);
+        gp2.setManaged(false);
+        gp2_tf1_label.setVisible(false);
+        gp2_tf1_label.setManaged(false);
+        gp2_button.setVisible(false);
+        gp2_button.setManaged(false);
+        gp2_button_update.setVisible(false);
+        gp2_button_update.setManaged(false);
+
     }
     @FXML protected void menuCreateClick() {
         ElemekTörlése();
@@ -156,6 +165,23 @@ public class GrafikusController {
         tv1.getColumns().addAll(idCol, szamCol, evCol, hetCol, talalatCol, darabCol, ertekCol);
         idCol.setCellValueFactory(new PropertyValueFactory<>("Id"));
         cellValueFactory();
+    }
+
+    private void rest1_setTv1(){
+        tv1.setVisible(true);
+        tv1.setManaged(true);
+        tv1.getColumns().removeAll(tv1.getColumns());
+        id_rest1 = new TableColumn("ID");
+        name_rest1 = new TableColumn("Név");
+        email_rest1 = new TableColumn("Email");
+        gender_rest1 = new TableColumn("Nem");
+        status_rest1 = new TableColumn("Státusz");
+        tv1.getColumns().addAll(id_rest1, name_rest1, email_rest1, gender_rest1, status_rest1);
+        id_rest1.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        name_rest1.setCellValueFactory(new PropertyValueFactory<>("Név"));
+        email_rest1.setCellValueFactory(new PropertyValueFactory<>("Email"));
+        gender_rest1.setCellValueFactory(new PropertyValueFactory<>("Nem"));
+        status_rest1.setCellValueFactory(new PropertyValueFactory<>("Státusz"));
     }
 
     private void set_tv1_without_id() {
@@ -350,7 +376,59 @@ public class GrafikusController {
     }
 
     @FXML protected void menuStreamClick(){
-        
+
     }
 
+    @FXML protected void menuRestCreateClick(){
+        ElemekTörlése();
+        gp2.setVisible(true);
+        gp2.setManaged(true);
+        gp2_tf1.setVisible(false);
+        gp2_tf1.setManaged(false);
+        gp2_tf1_label.setVisible(false);
+        gp2_tf1_label.setManaged(false);
+        gp2_button.setVisible(true);
+        gp2_button.setManaged(true);
+    }
+
+    @FXML protected void RestCreateClick() throws IOException {
+        POST(gp2_tf1.getText(), gp2_tf2.getText(), gp2_tf3.getText(),gp2_tf4.getText());
+    }
+    @FXML protected void menuRestReadClick() throws IOException {
+        ElemekTörlése();
+        rest1_setTv1();
+        tv1.getItems().clear();
+        Session session = factory.openSession();
+        Transaction t = session.beginTransaction();
+        List<String> lista = GET(null);
+        for(String egy:lista)
+            tv1.getItems().add(egy);
+        System.out.println();
+        t.commit();
+    }
+    @FXML protected void menuRestUpdateClick() {
+        ElemekTörlése();
+        gp2.setVisible(true);
+        gp2.setManaged(true);
+        gp2_tf1.setVisible(true);
+        gp2_tf1.setManaged(true);
+        gp2_tf1_label.setVisible(true);
+        gp2_tf1_label.setManaged(true);
+        gp2_button_update.setVisible(true);
+        gp2_button_update.setManaged(true);
+    }
+    @FXML protected void RestUpdateClick() throws IOException {
+        PUT(gp2_tf1.getText(), gp2_tf2.getText(), gp2_tf3.getText(), gp2_tf4.getText(),gp2_tf5.getText());
+    }
+    @FXML protected void menuRestDeleteClick(){
+        ElemekTörlése();
+        rest1_id.setVisible(true);
+        rest1_id.setManaged(true);
+        rest1_delete_bt.setVisible(true);
+        rest1_delete_bt.setManaged(true);
+    }
+
+    @FXML private void deleteRecord() throws IOException {
+        DELETE(rest1_id.getText());
+    }
 }
